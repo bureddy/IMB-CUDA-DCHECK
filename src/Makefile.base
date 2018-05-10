@@ -78,19 +78,19 @@ exe_rma:
 	sleep 1; touch $@ *.c; rm -rf exe_io exe_ext exe_mpi1 exe_nbc
 
 MPI1: $(OBJ1) 
-	$(CLINKER) $(LDFLAGS) -o $(IMB-MPI1) $(OBJ1)  $(LIB_PATH) $(LIBS)
-
-EXT : $(OBJEXT) 
-	$(CLINKER) $(LDFLAGS) -o $(IMB-EXT) $(OBJEXT)  $(LIB_PATH) $(LIBS)
-
-IO: $(OBJIO) 
-	$(CLINKER) $(LDFLAGS) -o $(IMB-IO) $(OBJIO)  $(LIB_PATH) $(LIBS)
-
-NBC: $(OBJNBC) 
-	$(CLINKER) $(LDFLAGS) -o $(IMB-NBC) $(OBJNBC)  $(LIB_PATH) $(LIBS)
-
-RMA: $(OBJRMA) 
-	$(CLINKER) $(LDFLAGS) -o $(IMB-RMA) $(OBJRMA)  $(LIB_PATH) $(LIBS)
+	$(CLINKER) -o $(IMB-MPI1) $(OBJ1)  $(LIB_PATH) $(LIBS) $(LDFLAGS)  
+                                                                          
+EXT : $(OBJEXT)                                                           
+	$(CLINKER) -o $(IMB-EXT) $(OBJEXT)  $(LIB_PATH) $(LIBS) $(LDFLAGS) 
+                                                                          
+IO: $(OBJIO)                                                              
+	$(CLINKER) -o $(IMB-IO) $(OBJIO)  $(LIB_PATH) $(LIBS) $(LDFLAGS) 
+                                                                          
+NBC: $(OBJNBC)                                                            
+	$(CLINKER) -o $(IMB-NBC) $(OBJNBC)  $(LIB_PATH) $(LIBS) $(LDFLAGS) 
+                                                                          
+RMA: $(OBJRMA)                                                            
+	$(CLINKER) -o $(IMB-RMA) $(OBJRMA)  $(LIB_PATH) $(LIBS) $(LDFLAGS) 
 
 # Make sure that we remove executables for specific architectures
 clean:

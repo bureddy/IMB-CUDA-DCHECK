@@ -707,7 +707,7 @@ int IMB_basic_input(struct comm_info* c_info, struct Bench** P_BList,
                     }
                     else if( tst==1 )
                     {
-			            fprintf(stderr, "using CUDA: %d \n", tst);
+			fprintf(stderr, "using CUDA: %d \n", tst);
                         c_info->use_device=tst;
                     }
                     else
@@ -721,6 +721,7 @@ int IMB_basic_input(struct comm_info* c_info, struct Bench** P_BList,
                         break;
                     }
 
+                    n_cases++;
                     iarg++;
                     blist_ind = CONSTRUCT_BLIST;
                 }
@@ -742,7 +743,6 @@ int IMB_basic_input(struct comm_info* c_info, struct Bench** P_BList,
                         n_cases_excl++;
                         IMB_add_to_list_tail((*argv)[iarg], &Blist_excl_head, &Blist_excl_tail);
                     }
-		    fprintf(stderr, "added the benchmark \n");
                 }
 
                 iarg++;
@@ -828,7 +828,6 @@ int IMB_basic_input(struct comm_info* c_info, struct Bench** P_BList,
 
                 }
 
-                printf(" benchmarks to run ") ;
                 IMB_print_list(Blist_head);
                 printf("\n") ;
 
@@ -968,7 +967,8 @@ int IMB_basic_input(struct comm_info* c_info, struct Bench** P_BList,
         ALL_INFO[11] = c_info->py;
         ALL_INFO[12] = c_info->min_msg_log;
         ALL_INFO[13] = c_info->max_msg_log;
-        ALL_INFO[14] = ok;
+        ALL_INFO[14] = c_info->use_device;
+        ALL_INFO[15] = ok;
 
         ALL_F_INFO[0] = ITERATIONS->cache_size;
         ALL_F_INFO[1] = ITERATIONS->secs;
@@ -1031,7 +1031,8 @@ int IMB_basic_input(struct comm_info* c_info, struct Bench** P_BList,
         c_info->py          = TMP[11];
         c_info->min_msg_log = TMP[12];
         c_info->max_msg_log = TMP[13];
-        ok                  = TMP[14];
+        c_info->use_device  = TMP[14];
+        ok                  = TMP[15];
         /* >> IMB 3.1  */
 
         if( ok<0 ) return ok;
@@ -1100,8 +1101,6 @@ int IMB_basic_input(struct comm_info* c_info, struct Bench** P_BList,
     if( do_nonblocking )
         IMB_cpu_exploit(TARGET_CPU_SECS, 1);
 #endif
-
-    fprintf(stderr, "returning from Init \n");
 
     return 0;
 }
@@ -1623,7 +1622,6 @@ static void IMB_add_to_list_tail(const char* Bname, int *list_head_index, int* l
 
     blist_item->bname       = Bname;
     blist_item->next_index = -1;
-    fprintf(stderr, "added Bname: %s at index: %d \n", Bname, new_item_index);
 
     if( head == -1)
         /* empty list*/
@@ -1645,7 +1643,6 @@ static void IMB_add_to_list_tail(const char* Bname, int *list_head_index, int* l
     while( index != -1)
     {
         blist_item = &pool[index];
-        printf("%s at index: %d ", blist_item->bname, index);
         index = blist_item->next_index;
     }
 }
@@ -1658,7 +1655,6 @@ static void IMB_print_list(int list_head_index)
     while( index != -1)
     {
         blist_item = &pool[index];
-        printf("%s at index: %d ", blist_item->bname, index);
         index = blist_item->next_index;
     }
 

@@ -190,6 +190,7 @@ Return value          (type int)
         if (curesult != CUDA_SUCCESS) {
             return EXIT_FAILURE;
         }
+	fprintf(stderr, "rank %d local_rank: %d device: %d \n", C_INFO.w_rank, local_rank, dev_id); 
     }
 #endif
 
