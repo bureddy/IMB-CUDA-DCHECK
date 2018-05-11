@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export MPI_HOME=/usr/local/openmpi
-export CUDA_HOME=/usr/local/cuda-9.0
+export CUDA_HOME=/usr/local/cuda
 
 TESTLIST="PingPong PingPing Sendrecv Exchange Reduce Allreduce Reduce_scatter Allgather Allgatherv Gather Gatherv Scatter Scatterv Alltoall Alltoallv Bcast Barrier"
 
