@@ -5,10 +5,6 @@ export CUDA_HOME=/usr/local/cuda
 
 TESTLIST="PingPong PingPing Sendrecv Exchange Reduce Allreduce Reduce_scatter Allgather Allgatherv Gather Gatherv Scatter Scatterv Alltoall Alltoallv Bcast Barrier"
 
-make clean
-make -f make_ompi
-sleep 2
-
 echo "testing single node with 8 processes per node"
 
 ${MPI_HOME}/bin/mpirun -n 8 -hostfile hfile -npernode 8 ./IMB-MPI1 $TESTLIST -cuda 1
