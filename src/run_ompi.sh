@@ -9,4 +9,12 @@ make clean
 make -f make_ompi
 sleep 2
 
-${MPI_HOME}/bin/mpirun -hostfile hfile -npernode 8 ./IMB-MPI1 $TESTLIST -cuda 1 
+echo "testing single node with 8 processes per node"
+
+${MPI_HOME}/bin/mpirun -n 8 -hostfile hfile -npernode 8 ./IMB-MPI1 $TESTLIST -cuda 1
+
+read  -n 1 -p "Press any key to continue to next test...."
+
+echo "testing two nodes with 8 processes per node"
+
+${MPI_HOME}/bin/mpirun -n 16 -hostfile hfile -npernode 8 --mca btl_openib_want_cuda_gdr 1 ./IMB-MPI1 $TESTLIST -cuda 1
