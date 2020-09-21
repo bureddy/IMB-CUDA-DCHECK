@@ -24,21 +24,22 @@ export LOCAL_RANK=$OMPI_COMM_WORLD_LOCAL_RANK
 if [ $LOCAL_RANK -eq 0 ]; then
 hca=mlx5_0:1
 elif [ $LOCAL_RANK -eq 1 ]; then
-hca=mlx5_0:1
+hca=mlx5_1:1
 elif [ $LOCAL_RANK -eq 2 ]; then
-hca=mlx5_1:1
-elif [ $LOCAL_RANK -eq 3 ]; then
-hca=mlx5_1:1
-elif [ $LOCAL_RANK -eq 4 ]; then
 hca=mlx5_2:1
+elif [ $LOCAL_RANK -eq 3 ]; then
+hca=mlx5_3:1
+elif [ $LOCAL_RANK -eq 4 ]; then
+hca=mlx5_6:1
 elif [ $LOCAL_RANK -eq 5 ]; then
-hca=mlx5_3:1
+hca=mlx5_7:1
 elif [ $LOCAL_RANK -eq 6 ]; then
-hca=mlx5_3:1
+hca=mlx5_8:1
 elif [ $LOCAL_RANK -eq 7 ]; then
-hca=mlx5_3:1
+hca=mlx5_9:1
 fi
 
 export UCX_NET_DEVICES=$hca
+export CUDA_VISIBLE_DEVICES=$LOCAL_RANK
 
 exec $*
